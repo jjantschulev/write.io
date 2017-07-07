@@ -11,18 +11,41 @@
     <div class="header">
       <h1>Welcome to write.io</h1>
     </div>
-    <div class="content">
-      <a href="editor.html?FILENAME=new">
-        <div class="file">
+    <div id="content">
+      <!-- <a href="editor.html?FILENAME=new"> -->
+        <div class="file" onclick="go('hello_world')">
           <h4>Open Editor</h4>
         </div>
-      </a>
+      <!-- </a> -->
 
+    <script src="/js/socket.io.js"></script>
 
-    </div>
 
     <script type="text/javascript">
+      var socket = io("localhost:8888");
 
+      socket.on("filenames", function (data) {
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+          createDiv(data[i]);
+        }
+      })
+
+      function go(f) {
+        window.location.href = "editor.html?FILENAME="+f;
+      }
+
+      function createDiv(name) {
+        var newDiv =  document.createElement('div');
+        newDiv.setAttribute("class", "file");
+        newDiv.setAttribute("onclick", "go("+name+")");
+        var title = document.createElement('h4')
+        var node = document.createTextNode(name);
+        title.appendChild(node);
+        newDiv.appendChild(title);
+        var element = document.getElementById("content");
+        element.appendChild(newDiv);
+      }
     </script>
   </body>
 </html>

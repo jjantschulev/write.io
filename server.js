@@ -12,13 +12,33 @@ function listen() {
 var io = require("socket.io")(server);
 fs = require("fs");
 
+const filesFolder = 'files/';
+var filenames = [];
+
+
+fs.readdirSync(filesFolder).forEach(file => {
+  var f = file.substring(0, file.length - 4);
+  filenames.push(f);
+});
+
+console.log(filenames);
+
+
 io.sockets.on("connection", function (socket) {
+
+  io.to(socket.id).emit("filenames", filenames);
+
   socket.on("save",function (data) {
     saveFile(data.filename, data.text);
+    filenames = [];
+    fs.readdirSync(filesFolder).forEach(file => {
+      var f = file.substring(0, file.length - 4);
+      filenames.push(f);
+    });
   });
   socket.on("get",function (filename) {
     var text = "";
-    fs.readFile("files/"+filename+".txt", function (err, data) {
+    fs.readFile(filesFolder+filename+".txt", function (err, data) {
       if (err) {
         console.log("error while reading file" + err);
       } else {
@@ -38,10 +58,9 @@ function ab2str(buf) {
 }
 
 function saveFile(filename, text) {
-  fs.writeFile("files/"+filename+".txt", text, function(err) {
+  fs.writeFile(filesFolder+filename+".txt", text, function(err) {
     if(err) {
         return console.log(err);
     }
-    console.log("The file was saved!");
   });
 }
