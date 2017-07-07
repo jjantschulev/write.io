@@ -1,0 +1,32 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+}
+
+#main_text {
+  font-size: 1.9em;
+  font-weight: 300;
+  line-height: 1.5em;
+  letter-spacing: 0.04em;
+  color: black;
+
+  
+
+  outline: none;
+  border-width: 1px;
+  resize: none;
+  background-color: white;
+
+  height: 100%;
+  width: 100%;
+  padding:1%;
+  border:none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.write_area {
+  margin: 40px auto;
+  max-width: 1000px;
+}

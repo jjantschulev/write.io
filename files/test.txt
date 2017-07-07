@@ -1,0 +1,13 @@
+Hello World how are you. 
+Meh I'm Good. 
+Yeah. That's good. 
+Meh. 
+HI, I could theoretically code here. 
+
+function say_hi () {
+  console.log("hello world");
+}
+
+Nope. It has no syntax highlighting. 
+
+There is a bug. It only loads two lines until there is user input. 
